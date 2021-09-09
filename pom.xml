@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.paxovision</groupId>
+    <artifactId>CustomAsserJ</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <assertj-core.version>3.20.2</assertj-core.version>
+    </properties>
+
+    <dependencies>
+        <!-- Junit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+        </dependency>
+
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-assertions-generator</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                <version>2.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-assertions</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <entryPointClassPackage>org.assertj</entryPointClassPackage>
+                    <templates>
+                        <templatesDirectory>src/main/resources/templates/</templatesDirectory>
+
+                        <assertionClass>skynet_assertion_class_template.txt</assertionClass>
+                        <assertionsEntryPointClass>skynet_standard_assertions_entry_point_class_template.txt</assertionsEntryPointClass>
+                        <assertionEntryPointMethod>skynet_standard_assertion_entry_point_method_template.txt</assertionEntryPointMethod>
+
+
+                        <objectAssertion>skynet_has_assertion_template.txt</objectAssertion>
+                        <booleanAssertion>skynet_is_assertion_template.txt</booleanAssertion>
+                        <booleanWrapperAssertion>skynet_is_wrapper_assertion_template.txt</booleanWrapperAssertion>
+                        <realNumberAssertion>skynet_has_assertion_template_for_real_number.txt</realNumberAssertion>
+                        <realNumberWrapperAssertion>skynet_has_assertion_template_for_real_number_wrapper.txt</realNumberWrapperAssertion>
+                        <wholeNumberAssertion>skynet_has_assertion_template_for_whole_number.txt</wholeNumberAssertion>
+                        <wholeNumberWrapperAssertion>skynet_has_assertion_template_for_whole_number_wrapper.txt</wholeNumberWrapperAssertion>
+                        <charAssertion>skynet_has_assertion_template_for_char.txt</charAssertion>
+                        <characterAssertion>skynet_has_assertion_template_for_character.txt</characterAssertion>
+
+                        <arrayAssertion>skynet_has_elements_assertion_template_for_array.txt</arrayAssertion>
+                        <iterableAssertion>skynet_has_elements_assertion_template_for_iterable.txt</iterableAssertion>
+
+
+                    </templates>
+                    <classes>
+                        <param>com.paxovision.model.MyModel</param>
+                    </classes>
+                    <hierarchical>false</hierarchical>
+                    <targetDir>${project.build.sourceDirectory}</targetDir>
+                    <generateAssertions>false</generateAssertions>
+                    <generateBddAssertions>false</generateBddAssertions>
+                    <generateSoftAssertions>false</generateSoftAssertions>
+                    <generateJUnitSoftAssertions>false</generateJUnitSoftAssertions>
+                    <quiet>false</quiet>
+                    <generateAssertionsForAllFields>true</generateAssertionsForAllFields>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.assertj</groupId>
+                        <artifactId>assertj-core</artifactId>
+                        <version>${assertj-core.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.assertj</groupId>
+                        <artifactId>assertj-assertions-generator</artifactId>
+                        <version>2.2.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
+<!--
+
+        https://github.com/assertj/assertj-assertions-generator-maven-plugin/blob/main/src/main/java/org/assertj/maven/Templates.java
+-->
